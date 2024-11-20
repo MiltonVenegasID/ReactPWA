@@ -1,0 +1,21 @@
+{
+    "name": "Mi Nueva PWA",
+    "short_name": "Nueva PWA",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0000ff",
+    "description": "Aplicación Web Progresiva sin red",
+    "icons": [
+        {
+            "src": "cotorro.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "cotorro.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

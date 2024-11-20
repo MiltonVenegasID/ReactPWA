@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Nueva PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Bienvenido a Mi Nueva PWA</h1>
+    <p>Esta aplicación funciona sin conexión a internet.</p>
+    <input type="button" id="notifyButton" value="Aceptar notificaciones">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('serviceworker.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registrado con éxito:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Error al registrar el ServiceWorker:', error);
+                    });
+            });
+        }
+
+        document.getElementById('notifyButton').addEventListener('click', () => {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    fetch('https://dog.ceo/api/breeds/image/random')
+                        .then(response => response.json())
+                        .then(data => {
+                            navigator.serviceWorker.ready.then(swRegistration => {
+                                swRegistration.showNotification('Notificación con Imagen', {
+                                    body: 'Aquí tienes una imagen de un perro!',
+                                    icon: 'cotorro.png',
+                                    image: data.message // Imagen obtenida de la API de Dog
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching dog image:', error);
+                        });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
