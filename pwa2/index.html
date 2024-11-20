@@ -6,13 +6,20 @@
     <title>Mi Nueva PWA</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
+    <script>
+         if (window.matchMedia('(display-mode: standalone)').matches) {
+            window.location.href = 'home.html'; 
+        } 
+    </script>
 </head>
 <body>
-    <h1>Bienvenido a Mi Nueva PWA</h1>
-    <p>Esta aplicación funciona sin conexión a internet.</p>
+    <h1>INICIO</h1>
+    <p>Bienvenido a mi nueva PWA</p>
+    
     <input type="button" id="notifyButton" value="Aceptar notificaciones">
 
     <script>
+        
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('serviceworker.js')
@@ -28,19 +35,19 @@
         document.getElementById('notifyButton').addEventListener('click', () => {
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
-                    fetch('https://dog.ceo/api/breeds/image/random')
+                    fetch('https://api.thecatapi.com/v1/images/search')
                         .then(response => response.json())
                         .then(data => {
                             navigator.serviceWorker.ready.then(swRegistration => {
                                 swRegistration.showNotification('Notificación con Imagen', {
-                                    body: 'Aquí tienes una imagen de un perro!',
-                                    icon: 'cotorro.png',
-                                    image: data.message // Imagen obtenida de la API de Dog
+                                    body: '¡Aquí tienes una imagen de un gato!',
+                                    icon: 'cat.png',
+                                    image: data[0].url 
                                 });
                             });
                         })
                         .catch(error => {
-                            console.error('Error fetching dog image:', error);
+                            console.error('Error al mandar foto de gato:', error);
                         });
                 }
             });

@@ -4,7 +4,7 @@ const ASSETS_TO_CACHE = [
     '/index.html',
     '/offline.html',
     '/styles.css',
-    '/cotorro.png'
+    '/cat.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -28,27 +28,27 @@ self.addEventListener('fetch', (event) => {
 
 self.addEventListener('push', (event) => {
     event.waitUntil(
-        fetch('https://dog.ceo/api/breeds/image/random')
+        fetch('https://api.thecatapi.com/v1/images/search')
             .then(response => response.json())
             .then(data => {
-                console.log('Dog image URL:', data.message); // Log para verificar la URL de la imagen
+                console.log('Cat image URL:', data.message); 
                 const options = {
                     body: event.data ? event.data.text() : 'Tienes una nueva notificación!',
-                    icon: '/cotorro.png',
-                    badge: '/cotorro.png',
-                    image: data.message, // Imagen obtenida de la API de Dog
+                    icon: '/cat.png',
+                    badge: '/cat.png',
+                    image: data.message, 
                     data: {
-                        url: data.message // URL de la imagen para abrir al hacer clic
+                        url: data.message 
                     }
                 };
                 self.registration.showNotification('Mi Notificación PWA', options);
             })
             .catch(error => {
-                console.error('Error fetching dog image:', error);
+                console.error('Error al mandar foto de gato:', error);
                 const options = {
                     body: event.data ? event.data.text() : 'Tienes una nueva notificación!',
-                    icon: '/cotorro.png',
-                    badge: '/cotorro.png'
+                    icon: '/cat.png',
+                    badge: '/cat.png'
                 };
                 self.registration.showNotification('Mi Notificación PWA', options);
             })

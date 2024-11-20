@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+        .splash {
+            text-align: center;
+        }
+        .splash img {
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="splash">
+        <img src="cotorro.png" alt="Logo">
+        <h1>Cargando...</h1>
+    </div>
+    <script>
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000); 
+    </script>
+</body>
+</html>
