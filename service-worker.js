@@ -1,23 +1,19 @@
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-      caches.open('app-cache').then((cache) => {
-        return cache.addAll([
-          '/',
-          '/index.html',
-          '/app.js',
-          '/icon-192x192.png',
-          '/icon-512x512.png'
-        ]);
-      })
-    );
-    console.log('Service Worker instalado');
-  });
-  
-  self.addEventListener('fetch', (event) => {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
-      })
-    );
-  });
-  
+var staticCacheName = "pwa";
+
+self.addEventListener("install", function (e) {
+e.waitUntil(
+	caches.open(staticCacheName).then(function (cache) {
+	return cache.addAll(["/"]);
+	})
+);
+});
+
+self.addEventListener("fetch", function (event) {
+console.log(event.request.url);
+
+event.respondWith(
+	caches.match(event.request).then(function (response) {
+	return response || fetch(event.request);
+	})
+);
+});
