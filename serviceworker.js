@@ -1,4 +1,4 @@
-var staticCacheName = "pwa";
+var staticCacheName = "pwa1";
 
 self.addEventListener("install", function (e) {
 e.waitUntil(
