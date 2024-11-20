@@ -1,50 +1,21 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,
-				initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <title>PWA Tutorial</title>
-
-  <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
-  <meta name="theme-color" content="black">
-
-  <link rel="manifest" href="/manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PWA</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <h1 style="color: green;">
-    GeeksforGeeks</h1>
-
-
-  <p>
-    This is a simple tutorial for
-    creating a PWA application.
-  </p>
-
-
-  <script>
-    window.addEventListener('load', () => {
-      registerSW();
-    });
-
-    async function registerSW() {
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/serviceworker.js').then(function (registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function (err) {
-            console.log('ServiceWorker registration failed: ', err);
-          });
-        });
-      }
-    }
-  </script>
-
+    <h1>Welcome to My PWA</h1>
+    <p>This is a simple Progressive Web App.</p>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/serviceworker.js')
+            .then(() => console.log('Service Worker registered'))
+            .catch(error => console.error('Service Worker registration failed:', error));
+        }
+    </script>
 </body>
-
 </html>
