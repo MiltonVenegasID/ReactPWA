@@ -15,9 +15,45 @@
   <div id="home-screen" class="home hidden">
     <h1>Gestor de Tareas</h1>
     <div id="app">
+      <!-- Client-side generated content will be inserted here -->
     </div>
   </div>
 
+  <script>
+    // Check for service worker support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').then(() => {
+        console.log('Service Worker registrado');
+      });
+    }
+
+    // Request notification permission
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification('Notificaciones activadas para la PWA de Tareas');
+        }
+      });
+    }
+
+    // Fetch remote data and update UI
+    fetch('https://api.example.com/tasks')
+      .then(response => response.json())
+      .then(remoteTasks => {
+        const app = document.getElementById('app');
+        const localTasks = JSON.parse(localStorage.getItem('tareas')) || [];
+        const allTasks = [...localTasks, ...remoteTasks];
+
+        allTasks.forEach((task, index) => {
+          const taskElem = document.createElement('div');
+          taskElem.textContent = `${index + 1}. ${task}`;
+          app.appendChild(taskElem);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching remote tasks:', error);
+      });
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
